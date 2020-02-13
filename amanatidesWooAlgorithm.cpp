@@ -5,11 +5,60 @@
 #define MAX(a,b) ((a > b ? a : b))
 #define MIN(a,b) ((a < b ? a : b))
 
-void amanatidesWooAlgorithm(const Ray& ray, const Grid3D& grid) noexcept {
+// Uses the improved version of Smit's algorithm to determine if the given ray will intersect
+// the grid between tMin and tMax. This version causes an additional efficiency penalty,
+// but takes into account the negative zero case.
+// See: http://www.cs.utah.edu/~awilliam/box/box.pdf
+bool rayBoxIntersection(const Ray& ray, const Grid3D& grid, value_type& tMin, value_type& tMax,
+                        value_type t0, value_type t1) {
+    value_type tYMin, tYMax, tZMin, tZMax;
+    const value_type x_inv_dir = 1 / ray.direction().x();
+    if (x_inv_dir >= 0) {
+        tMin = (grid.minBound().x() - ray.origin().x()) * x_inv_dir;
+        tMax = (grid.maxBound().x() - ray.origin().x()) * x_inv_dir;
+    } else {
+        tMin = (grid.maxBound().x() - ray.origin().x()) * x_inv_dir;
+        tMax = (grid.minBound().x() - ray.origin().x()) * x_inv_dir;
+    }
+
+    const value_type y_inv_dir = 1 / ray.direction().y();
+    if (y_inv_dir >= 0) {
+        tYMin = (grid.minBound().y() - ray.origin().y()) * y_inv_dir;
+        tYMax = (grid.maxBound().y() - ray.origin().y()) * y_inv_dir;
+    } else {
+        tYMin = (grid.maxBound().y() - ray.origin().y()) * y_inv_dir;
+        tYMax = (grid.minBound().y() - ray.origin().y()) * y_inv_dir;
+    }
+
+    if ( tMin > tYMax || tYMin > tMax) return false;
+    if (tYMin > tMin) tMin = tYMin;
+    if (tYMax < tMax) tMax = tYMax;
+
+    const value_type z_inv_dir = 1 / ray.direction().z();
+    if (z_inv_dir >= 0) {
+        tZMin = (grid.minBound().z() - ray.origin().z()) * z_inv_dir;
+        tZMax = (grid.maxBound().z() - ray.origin().z()) * z_inv_dir;
+    } else {
+        tZMin = (grid.maxBound().z() - ray.origin().z()) * z_inv_dir;
+        tZMax = (grid.minBound().z() - ray.origin().z()) * z_inv_dir;
+    }
+
+    if (tMin > tZMax || tZMin > tMax) return false;
+    if (tZMin > tMin) tMin = tZMin;
+    if (tZMax < tMax) tMax = tZMax;
+    return (tMin < t1 && tMax > t0);
+}
+
+void amanatidesWooAlgorithm(const Ray& ray, const Grid3D& grid, value_type t0, value_type t1) noexcept {
 
     // TODO: Assuming the ray's origin is within the voxel grid. To fix, add Smit's algorithm.
-    const value_type tMin = 0.0;
-    const value_type tMax = 1.0;
+    value_type tMin;
+    value_type tMax;
+    const bool intersected = rayBoxIntersection(ray, grid, tMin, tMax, t0, t1);
+    if (!intersected) return;
+
+    tMin = MAX(tMin, t0);
+    tMax = MAX(tMax, t1);
     const BoundVec3 ray_start = ray.origin() + ray.direction() * tMin;
     const BoundVec3 ray_end = ray.origin() + ray.direction() * tMax;
 
