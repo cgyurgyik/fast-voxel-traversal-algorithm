@@ -1,13 +1,13 @@
 #include "amanatidesWooAlgorithm.h"
 #include <numeric>
 
-// Macros defined to avoid unnecessary checks with NaNs when using std::max and std::min
+// Macro defined to avoid unnecessary checks with NaNs when using std::max
 #define MAX(a,b) ((a > b ? a : b))
-#define MIN(a,b) ((a < b ? a : b))
 
 // Uses the improved version of Smit's algorithm to determine if the given ray will intersect
 // the grid between tMin and tMax. This version causes an additional efficiency penalty,
 // but takes into account the negative zero case.
+// tMin and tMax are then updated to incorporate the new intersection values.
 // See: http://www.cs.utah.edu/~awilliam/box/box.pdf
 bool rayBoxIntersection(const Ray& ray, const Grid3D& grid, value_type& tMin, value_type& tMax,
                         value_type t0, value_type t1) {
@@ -30,7 +30,7 @@ bool rayBoxIntersection(const Ray& ray, const Grid3D& grid, value_type& tMin, va
         tYMax = (grid.minBound().y() - ray.origin().y()) * y_inv_dir;
     }
 
-    if ( tMin > tYMax || tYMin > tMax) return false;
+    if (tMin > tYMax || tYMin > tMax) return false;
     if (tYMin > tMin) tMin = tYMin;
     if (tYMax < tMax) tMax = tYMax;
 
@@ -50,12 +50,10 @@ bool rayBoxIntersection(const Ray& ray, const Grid3D& grid, value_type& tMin, va
 }
 
 void amanatidesWooAlgorithm(const Ray& ray, const Grid3D& grid, value_type t0, value_type t1) noexcept {
-
-    // TODO: Assuming the ray's origin is within the voxel grid. To fix, add Smit's algorithm.
-    value_type tMin;
-    value_type tMax;
-    const bool intersected = rayBoxIntersection(ray, grid, tMin, tMax, t0, t1);
-    if (!intersected) return;
+    value_type tMin; // Modified in rayBoxIntersection.
+    value_type tMax; // Modified in rayBoxIntersection.
+    const bool ray_has_intersected = rayBoxIntersection(ray, grid, tMin, tMax, t0, t1);
+    if (!ray_has_intersected) return;
 
     tMin = MAX(tMin, t0);
     tMax = MAX(tMax, t1);
