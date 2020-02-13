@@ -1,6 +1,9 @@
 ### About
 An implementation of Amanatides & Woo's "A Fast Voxel Traversal Algorithm." 
 
+### Notes
+- Instead of using ```double``` or ```float```, I've decided to use ```value_type``` which can be set to a user-specified type in ```Vec3.h```.
+
 ### TODOs
 - Testing.
 - Visualization.
