@@ -1,8 +1,7 @@
 ### About
-Takes adavantage of modern C++ features such as ```constexpr``` to implement the fast voxel traversal algorithm.
+Takes advantage of modern C++ features such as ```constexpr``` to implement the fast voxel traversal algorithm.
 
 ### TODOs
-- Finish improved Smit's algorithm implementation to calculate ray intersection when its origin is outside the grid.
 - Testing.
 - Visualization.
 
