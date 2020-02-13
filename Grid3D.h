@@ -6,6 +6,12 @@
 
 // Represents a 3 dimensional grid sub-divided with voxels. Provides necessary information to perform
 // traversal over the grid system.
+//
+// Requires:
+//   min_bound < max_bound
+//   num_x_voxels > 0
+//   num_y_voxels > 0
+//   num_z_voxels > 0
 struct Grid3D {
 public:
     [[nodiscard]] constexpr Grid3D(const BoundVec3& min_bound, const BoundVec3& max_bound, size_t num_x_voxels,

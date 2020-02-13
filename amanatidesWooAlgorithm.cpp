@@ -8,6 +8,7 @@
 // the grid between tMin and tMax. This version causes an additional efficiency penalty,
 // but takes into account the negative zero case.
 // tMin and tMax are then updated to incorporate the new intersection values.
+// Returns true if the ray intersects the grid, and false otherwise.
 // See: http://www.cs.utah.edu/~awilliam/box/box.pdf
 [[no discard]] bool rayBoxIntersection(const Ray& ray, const Grid3D& grid, value_type& tMin, value_type& tMax,
                         value_type t0, value_type t1) noexcept {
@@ -50,10 +51,10 @@
 }
 
 void amanatidesWooAlgorithm(const Ray& ray, const Grid3D& grid, value_type t0, value_type t1) noexcept {
-    value_type tMin; // Modified in rayBoxIntersection.
-    value_type tMax; // Modified in rayBoxIntersection.
-    const bool ray_has_intersected = rayBoxIntersection(ray, grid, tMin, tMax, t0, t1);
-    if (!ray_has_intersected) return;
+    value_type tMin;
+    value_type tMax;
+    const bool ray_intersects_grid = rayBoxIntersection(ray, grid, tMin, tMax, t0, t1);
+    if (!ray_intersects_grid) return;
 
     tMin = MAX(tMin, t0);
     tMax = MAX(tMax, t1);
