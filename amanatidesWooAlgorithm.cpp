@@ -9,8 +9,8 @@
 // but takes into account the negative zero case.
 // tMin and tMax are then updated to incorporate the new intersection values.
 // See: http://www.cs.utah.edu/~awilliam/box/box.pdf
-bool rayBoxIntersection(const Ray& ray, const Grid3D& grid, value_type& tMin, value_type& tMax,
-                        value_type t0, value_type t1) {
+[[no discard]] bool rayBoxIntersection(const Ray& ray, const Grid3D& grid, value_type& tMin, value_type& tMax,
+                        value_type t0, value_type t1) noexcept {
     value_type tYMin, tYMax, tZMin, tZMax;
     const value_type x_inv_dir = 1 / ray.direction().x();
     if (x_inv_dir >= 0) {
