@@ -1,5 +1,5 @@
 ### About
-Takes advantage of modern C++ features such as ```constexpr``` to implement the fast voxel traversal algorithm.
+An implementation of Amanatides & Woo's "A Fast Voxel Traversal Algorithm." 
 
 ### TODOs
 - Testing.
