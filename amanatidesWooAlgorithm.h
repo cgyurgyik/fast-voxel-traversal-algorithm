@@ -10,7 +10,7 @@
 // to determine intersection. The bounds [t0, t1] determine the begin and end parameter for which the ray travels.
 // The algorithm occurs in two phases, initialization and traversal.
 // Requires:
-//     t0 > t1
+//     t1 > t0
 //     0.0 <= t0 <= 1.0
 //     0.0 <= t1 <= 1.0
 //     To encapsulate entire ray traversal, set t0 = 0.0, t1 = 1.0
