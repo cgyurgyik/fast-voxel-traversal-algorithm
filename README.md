@@ -1,5 +1,5 @@
 ### About
-A prototype for the implementation of Amanatides & Woo's "A Fast Voxel Traversal Algorithm" in C++. Note, this has not been tested, and is not guaranteed to be bug-free.
+A prototype for the implementation of Amanatides & Woo's "A Fast Voxel Traversal Algorithm" in C++. Note, this has not been tested, and is not guaranteed to be bug-free. An overview of the algorithm can be found [https://docs.google.com/document/d/1QvWw81A0T5vcMAt1WElDeSdBmsw0KJvJdYNr7XfRHfw/edit?usp=sharing](here) (WIP).
 
 ### Notes
 - Instead of using ```double``` or ```float```, I've decided to use ```value_type``` which can be set to a user-specified type in ```Vec3.h```.
