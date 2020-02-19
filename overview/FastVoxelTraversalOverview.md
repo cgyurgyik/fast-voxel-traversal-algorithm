@@ -19,6 +19,7 @@ Here, we have our ray which is a line described as ```r = u + t * v, t >= 0```. 
 ### Initialization
 
 The first step of the initialization phase is to find the voxel that contains the ray origin, u. There is no requirement that the ray origin is within our grid though. Let’s say then, that we have the following case:
+
 ![ray intersection](ray_intersection.png)
 
 Here, the ray origin is outside our grid. We can clearly see that the ray’s first entrance is into ```Voxel(0,0)```. 
@@ -72,6 +73,7 @@ and the slope of the ray relative to the cartesian grid (call this ```slope = ra
 Another way to think about step is to ask the question, 
 “while following the ray from the origin, which direction does it go?” 
 In fact, some users also call this variable ```Dir```, short for direction. Let’s look at an example:
+
 ![ray direction 1](ray_dir.png)
 
 Here, (```ray.direction.y > 0``` and ```ray.direction.x > 0``` and ```grid.x_step = grid.y_step = 1```). So in this case, 
@@ -79,6 +81,7 @@ Here, (```ray.direction.y > 0``` and ```ray.direction.x > 0``` and ```grid.x_ste
 StepX = 1 * grid.x_step = 1;
 StepY = 1 * grid.y_step = 1;
 ```
+
 ![ray direction 2](ray_dir2.png)
 
 If the ray’s slope was 0, we’d have instead the following:
@@ -107,6 +110,7 @@ The value of ```tMax``` is determined with each iteration. It is the maximum dir
 ![tMax](tMax.png)
 
 Here, ```tMaxX``` represents how far the ray can travel before hitting the first ```X``` boundary; ```tMaxY``` represents how far the ray can travel before hitting the first ```Y``` boundary. Clearly, for the example above, ```tMaxY``` is smaller than ```tMaxX```; this means we will enter the voxel associated with ```tMaxY``` first. This is exactly the first step of our loop:
+
 ```
 if (tMaxX < tMaxY) {
 	traverse in the x-direction.
@@ -117,6 +121,7 @@ if (tMaxX < tMaxY) {
 
 Example code to calculate ```tMaxX``` might be the following:
 First, let’s calculate the current X index that the ray enters at initialization:
+
 ```
 // Here, we see this is determined by taking the maximum of the 1 and
 // the ray's origin and the minimum bound.
@@ -124,6 +129,7 @@ First, let’s calculate the current X index that the ray enters at initializati
 current_X_index = max(1, ceiling(ray_origin.x - grid.minBound.x));
 ```
 We can then calculate ```tMaxX```:
+
 ```
 // grid.minBound.x is the lower left corner of the grid.
 // current_X_index is the current X index where the ray begins. If it  
@@ -140,6 +146,7 @@ Not accounted for in the above pseudocode is:
 #### tDelta
 Lastly, ```tDelta``` is calculated before the loop begins. as the paper mentions, “tDeltaX determines how far along the ray we must move (in units of t) for the horizontal component of such a movement to equal the width of a voxel.” In other words, it is the parametric step length between grid planes. 
 We can show that here:
+
 ![tDelta](tDelta.png)
 
 From this image, one can infer that ```tDeltaY = StepY / ray.direction.y;```
@@ -160,7 +167,6 @@ loop {
 	NextVoxel(X,Y);
 }
 ```
-
 
 - ``` loop { ... } ```
 The first portion is the loop invariant. In most use cases, the loop will continue until we’ve hit one of two cases:
