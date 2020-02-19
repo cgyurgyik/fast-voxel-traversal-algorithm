@@ -12,7 +12,7 @@ At this point, we assume that you have read the paper, and you’re familiar wit
 
 ## 2-dimensional case
 We’ll begin with the 2-dimensional grid case displayed in Figure 1 of the paper:
-![2D grid](2d_grid.png)
+![2D grid](images/2d_grid.png)
 
 Here, we have our ray which is a line described as ```r = u + t * v, t >= 0```. This boundary condition makes sense, since ```t``` is time here. uis a bounded vector usually referred to as the origin, and ```v``` is the free vector representing the direction of the ray. The goal of this algorithm is to traverse the voxels with minimal floating point operations. The paper breaks it down into two phases: “initialization” and “incremental traversal.”
 
@@ -20,7 +20,7 @@ Here, we have our ray which is a line described as ```r = u + t * v, t >= 0```. 
 
 The first step of the initialization phase is to find the voxel that contains the ray origin, u. There is no requirement that the ray origin is within our grid though. Let’s say then, that we have the following case:
 
-![ray intersection](ray_intersection.png)
+![ray intersection](images/ray_intersection.png)
 
 Here, the ray origin is outside our grid. We can clearly see that the ray’s first entrance is into ```Voxel(0,0)```. 
 In other words, the ray origin is below ```Voxel(0,0)``` which one might name as ```Voxel(0,-1)```. As discussed in the paper, we can simply take the adjacent voxel which in our case 
@@ -74,7 +74,7 @@ Another way to think about step is to ask the question,
 “while following the ray from the origin, which direction does it go?” 
 In fact, some users also call this variable ```Dir```, short for direction. Let’s look at an example:
 
-![ray direction 1](ray_dir.png)
+![ray direction 1](images/ray_dir.png)
 
 Here, (```ray.direction.y > 0``` and ```ray.direction.x > 0``` and ```grid.x_step = grid.y_step = 1```). So in this case, 
 ```
@@ -82,7 +82,7 @@ StepX = 1 * grid.x_step = 1;
 StepY = 1 * grid.y_step = 1;
 ```
 
-![ray direction 2](ray_dir2.png)
+![ray direction 2](images/ray_dir2.png)
 
 If the ray’s slope was 0, we’d have instead the following:
 ```
@@ -146,7 +146,7 @@ Not accounted for in the above pseudocode is:
 Lastly, ```tDelta``` is calculated before the loop begins. as the paper mentions, “tDeltaX determines how far along the ray we must move (in units of t) for the horizontal component of such a movement to equal the width of a voxel.” In other words, it is the parametric step length between grid planes. 
 We can show that here:
 
-![tDelta](tDelta.png)
+![tDelta](images/tDelta.png)
 
 From this image, one can infer that ```tDeltaY = StepY / ray.direction.y;```
 Similarly, ```tDeltaX = StepX / ray.direction.x;```
