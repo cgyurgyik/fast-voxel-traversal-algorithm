@@ -28,13 +28,13 @@ is ```Voxel(0,0)```. To calculate entrance, one can use Smit’s algorithm discu
 A “safer” implementation of this algorithm can be found in the paper [here](http://www.cs.utah.edu/~awilliam/box/box.pdf).
 
 #### Example:
-The ray in the image above might be represented as ```r = u + tv``` where ```u= <0,-3/4>``` and ```v = <1, 8/9>```, i.e. ```r```  follows the line ```y=(-3/4)+ (9/8)x```. Thus, ```ray.origin.x = 0``` and ```ray.origin.y = -3/4```. Based on grid (given at initialization) we know that
+The ray in the image above might be represented as ```r = u + tv``` where ```u = <0,-3/4>``` and ```v = <1, 8/9>```, i.e. ```r```  follows the line ```y = (-3/4)+ (9/8)x```. Thus, ```ray.origin.x = 0``` and ```ray.origin.y = -3/4```. Based on grid (given at initialization) we know that
 ```
 grid.corners =   [(0,0),(0,2),
                   (2,2),(2,0)];
 ```
 
-Thus, we can determine the boundary at which ```r``` intersects the grid. In particular, we see the ```y = 0``` boundary of the grid is represented by the vector ```r2= <0,0> + <1,0>t```; solving for ```r2= r``` yields ```t =27/32```. Thus, at the annoying value of ```t = 27/32```, the ray ```r``` will intersect the boundary of the grid. Note that this value of ```t``` is the least such value of ```t``` for all boundary crossings. 
+Thus, we can determine the boundary at which ```r``` intersects the grid. In particular, we see the ```y = 0``` boundary of the grid is represented by the vector ```r2 = <0,0> + <1,0>t```; solving for ```r2 = r``` yields ```t = 27/32```. Thus, at the annoying value of ```t = 27/32```, the ray ```r``` will intersect the boundary of the grid. Note that this value of ```t``` is the least such value of ```t``` for all boundary crossings. 
 
 From here, based on grid we know that 
 ```
@@ -107,7 +107,8 @@ Calculating ```StepY``` is identical.
 
 #### tMax
 The value of ```tMax``` is determined with each iteration. It is the maximum direction the ray travels before hitting a voxel boundary in that direction. This can be illustrated as such:
-![tMax](tMax.png)
+
+![tMax](images/tMax.png)
 
 Here, ```tMaxX``` represents how far the ray can travel before hitting the first ```X``` boundary; ```tMaxY``` represents how far the ray can travel before hitting the first ```Y``` boundary. Clearly, for the example above, ```tMaxY``` is smaller than ```tMaxX```; this means we will enter the voxel associated with ```tMaxY``` first. This is exactly the first step of our loop:
 
