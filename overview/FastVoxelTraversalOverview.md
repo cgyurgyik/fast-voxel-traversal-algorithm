@@ -190,15 +190,15 @@ loop {
 	if (tMaxX < tMaxY) {
 		tMaxX= tMaxX + tDeltaX;
 		X= X + stepX;
-    if (X == x_out_of_bounds) return(NIL); // Check max x-coordinate.
-  } else {
-	tMaxY= tMaxY + tDeltaY;
-	Y= Y + stepY;
-  if (Y == y_out_of_bounds) return(NIL); // Check max y-coordinate.
-  }
-  list= ObjectList[X][Y];		             // Check voxel to see if
-  if (list != NIL) return(list);		     // it contains objects.
-  NextVoxel(X,Y);
+        if (X == x_out_of_bounds) return(NIL); // Check max x-coordinate.
+        } else {
+	        tMaxY= tMaxY + tDeltaY;
+	        Y= Y + stepY;
+                if (Y == y_out_of_bounds) return(NIL); // Check max y-coordinate.
+       }
+       list= ObjectList[X][Y];		               // Check voxel to see if
+       if (list != NIL) return(list);		       // it contains objects.
+       NextVoxel(X,Y);
 }
 ```
 
