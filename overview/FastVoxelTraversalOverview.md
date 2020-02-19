@@ -140,8 +140,8 @@ tMax = grid.minBound.x + current_X_index - ray_origin.x) / ray.direction.x);
 ```
 
 Not accounted for in the above pseudocode is:
--```tMin```: Calculated during the initialization phase, this determines the minimum time needed to cross into the grid. This would be added to ```tMaxX``` in the initialization phase.
--```voxel_size```: When not of unit size, we can divide by the voxel size in the x-direction when calculating the ```current_X_index```, and then multiply when calculating ```tMaxX```
+- ```tMin```: Calculated during the initialization phase, this determines the minimum time needed to cross into the grid. This would be added to ```tMaxX``` in the initialization phase.
+- ```voxel_size```: When not of unit size, we can divide by the voxel size in the x-direction when calculating the ```current_X_index```, and then multiply when calculating ```tMaxX```
 
 #### tDelta
 Lastly, ```tDelta``` is calculated before the loop begins. as the paper mentions, “tDeltaX determines how far along the ray we must move (in units of t) for the horizontal component of such a movement to equal the width of a voxel.” In other words, it is the parametric step length between grid planes. 
