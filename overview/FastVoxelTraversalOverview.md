@@ -150,7 +150,9 @@ We can show that here:
 ![tDelta](images/tDelta.png)
 
 From this image, one can infer that ```tDeltaY = StepY / ray.direction.y;```
+
 Similarly, ```tDeltaX = StepX / ray.direction.x;```
+
 If one were to use a voxel size other than 1, we’d simply multiply by the ```voxel_size```.
 
 ### 2-dimensional incremental phase algorithm
