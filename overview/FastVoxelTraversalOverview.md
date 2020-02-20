@@ -138,7 +138,7 @@ We can then calculate ```tMaxX```:
 // current_X_index is the current X index where the ray begins. If it starts outside, this is 1.
 // ray_origin.x is the x-coordinate of where the ray originates.
 // ray.direction.x is the x-direction of the ray’s travel path.
-tMax = grid.minBound.x + current_X_index - ray_origin.x) / ray.direction.x);
+tMax = (grid.minBound.x + current_X_index - ray_origin.x) / ray.direction.x);
 ```
 
 Not accounted for in the above pseudocode is:
