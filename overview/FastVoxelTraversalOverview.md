@@ -192,7 +192,7 @@ loop {
 	if (tMaxX < tMaxY) {
 		tMaxX= tMaxX + tDeltaX;
 		X= X + stepX;
-        if (X == x_out_of_bounds) return(NIL); // Check max x-coordinate.
+                if (X == x_out_of_bounds) return(NIL); // Check max x-coordinate.
         } else {
 	        tMaxY= tMaxY + tDeltaY;
 	        Y= Y + stepY;
@@ -248,6 +248,3 @@ Another implementation in MATLAB can be found [here](https://www.mathworks.com/m
 - [SketchpunkLabs "Voxel Ray Intersection"](https://www.youtube.com/watch?v=lJdEX3w0xaY)
 - [Smit "Efficiency Issues for Ray Tracing"](http://www.cse.chalmers.se/edu/course/TDA362/EfficiencyIssuesForRayTracing.pdf)
 - [Williams et. al. "An Efficient and Robust Ray–Box Intersection Algorithm"](http://www.cs.utah.edu/~awilliam/box/box.pdf)
-
-
-
