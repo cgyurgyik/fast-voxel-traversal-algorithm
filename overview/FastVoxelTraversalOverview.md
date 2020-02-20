@@ -14,7 +14,7 @@ At this point, we assume that you have read the paper, and you’re familiar wit
 We’ll begin with the 2-dimensional grid case displayed in Figure 1 of the paper:
 ![2D grid](images/2d_grid.png)
 
-Here, we have our ray which is a line described as ```r = u + t * v, t >= 0```. This boundary condition makes sense, since ```t``` is time here. uis a bounded vector usually referred to as the origin, and ```v``` is the free vector representing the direction of the ray. The goal of this algorithm is to traverse the voxels with minimal floating point operations. The paper breaks it down into two phases: “initialization” and “incremental traversal.”
+Here, we have our ray which is a line described as ```r = u + t * v, t >= 0```. This boundary condition makes sense, since ```t``` is time here. ```u``` is a bounded vector usually referred to as the origin, and ```v``` is the free vector representing the direction of the ray. The goal of this algorithm is to traverse the voxels with minimal floating point operations. The paper breaks it down into two phases: “initialization” and “incremental traversal.”
 
 ### Initialization
 
@@ -149,9 +149,9 @@ We can show that here:
 
 ![tDelta](images/tDelta.png)
 
-From this image, one can infer that ```tDeltaY = StepY / ray.direction.y;```
+From this image, one can infer that ```tDeltaY = 1 / ray.direction.y;```
 
-Similarly, ```tDeltaX = StepX / ray.direction.x;```
+Similarly, ```tDeltaX = 1 / ray.direction.x;```
 
 If one were to use a voxel size other than 1, we’d simply multiply by the ```voxel_size```.
 
