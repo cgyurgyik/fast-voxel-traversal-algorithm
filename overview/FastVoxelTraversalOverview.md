@@ -66,7 +66,7 @@ This leaves us with three variable sets to initialize: ```Step```, ```tMax```, a
 
 #### Step
 ```Step``` is initialized before the loop begins. 
-The initialization of Step requires two considerations: 
+The initialization of ```Step``` requires two considerations: 
 the (relative) lengths of each dimension of a voxel (e.g. ```grid.x_step```) 
 and the slope of the ray relative to the cartesian grid (call this ```slope = ray.direction.y/ray.direction.x```). 
 
@@ -92,7 +92,9 @@ StepY = 0 * grid.y_step = 0;
 
 The case for negative ray slope is similar, but now ```Step = -1```. 
 
-Note that, in addition to the slope of the ray, initializing Step relies on consideration of the size of the voxel, and is therefore not a multiple. If the voxels were not unit size, you would change the X value for a positive ray.direction.x to StepX = (voxel_size);
+Note that, in addition to the slope of the ray, initializing ```Step``` relies on consideration of the size of the voxel, and is therefore not a multiple. If the voxels were not unit size, you would change the X value for a positive ray.direction.x to 
+
+```StepX = (voxel_size);```
 This gives us the following generalized function for initializing StepX with unit sized voxel:
 
 ```
