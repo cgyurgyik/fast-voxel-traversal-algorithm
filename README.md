@@ -3,6 +3,7 @@ A prototype for the implementation of Amanatides & Woo's "A Fast Voxel Traversal
 
 ### Notes
 - Instead of using ```double``` or ```float```, I've decided to use ```value_type``` which can be set to a user-specified type in ```Vec3.h```.
+- An optional enhancement that can be done is calculating the ray's inverse direction upon construction of the ray. This will ensure inverse direction is calculated only once per ray.
 
 ### References
 - ["Amanatides & Woo "A Fast Voxel Traversal Algorithm"](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.42.3443&rep=rep1&type=pdf)
