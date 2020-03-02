@@ -44,7 +44,7 @@ private:
 
 // A 3-dimensional free vector, which has no initial point. It has two main criteria:
 // (1) direction, and (2) magnitude.
-struct FreeVec3 : Vec3 {
+struct FreeVec3 final : Vec3 {
     using Vec3::Vec3;
 
     [[nodiscard]] constexpr explicit FreeVec3(const Vec3& vec3) : Vec3::Vec3{vec3} {}
@@ -112,7 +112,7 @@ struct FreeVec3 : Vec3 {
 
 // A 3-dimensional bounded vector has a fixed start and end point. It represents a fixed point
 // in space, relative to some frame of reference.
-struct BoundVec3 : Vec3 {
+struct BoundVec3 final : Vec3 {
     [[nodiscard]]constexpr explicit BoundVec3(const Vec3& vec3) : Vec3::Vec3{vec3} {}
 
     [[nodiscard]] inline constexpr value_type dot(const Vec3& other) const {
@@ -146,7 +146,7 @@ struct BoundVec3 : Vec3 {
 // Represents a 3-dimensional unit vector, an abstraction over free vectors that guarantees
 // a length of 1. To prevent its length from changing, UnitVec3 does not allow
 // for mutations.
-struct UnitVec3 {
+struct UnitVec3 final {
     UnitVec3(value_type x, value_type y, value_type z)
             : UnitVec3{FreeVec3{x, y, z}} {}
     [[nodiscard]] constexpr explicit UnitVec3(const Vec3& vec3) : UnitVec3{FreeVec3{vec3}} {}

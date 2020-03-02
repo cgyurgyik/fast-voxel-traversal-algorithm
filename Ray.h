@@ -6,7 +6,7 @@
 // Encapsulates the functionality of a ray.
 // This consists of two components, the origin of the ray,
 // and the direction of the ray.
-struct Ray {
+struct Ray final {
     [[nodiscard]] constexpr Ray(const BoundVec3& origin, const UnitVec3& direction)
             : origin_{origin}, direction_{direction} {}
 
