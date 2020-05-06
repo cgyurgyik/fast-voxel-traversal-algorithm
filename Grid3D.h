@@ -17,9 +17,9 @@ public:
     [[nodiscard]] constexpr Grid3D(const BoundVec3& min_bound, const BoundVec3& max_bound, size_t num_x_voxels,
             size_t num_y_voxels, size_t num_z_voxels) :
             min_bound_{min_bound},
-            max_bound_{max_bound_},
+            max_bound_{max_bound},
             grid_size_{max_bound - min_bound},
-            num_x_voxels_{num_x_voxels_},
+            num_x_voxels_{num_x_voxels},
             num_y_voxels_{num_y_voxels},
             num_z_voxels_{num_z_voxels},
             voxel_size_x_{grid_size_.x() / num_x_voxels},
