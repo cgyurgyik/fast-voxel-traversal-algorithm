@@ -29,7 +29,7 @@ A “safer” implementation of this algorithm can be found in the paper [here](
 
 #### Example:
 The ray in the image above might be represented as ```r = u + tv``` where ```u = <0,-3/4>``` and ```v = <1, 8/9>```, i.e. ```r```  follows the line ```y = (-3/4)+ (9/8)x```. Thus, ```ray.origin.x = 0``` and ```ray.origin.y = -3/4```. Based on grid (given at initialization) we know that
-```
+```c
 grid.corners =   [(0,0),(0,2),
                   (2,2),(2,0)];
 ```
@@ -37,7 +37,7 @@ grid.corners =   [(0,0),(0,2),
 Thus, we can determine the boundary at which ```r``` intersects the grid. In particular, we see the ```y = 0``` boundary of the grid is represented by the vector ```r2 = <0,0> + <1,0>t```; solving for ```r2 = r``` yields ```t = 27/32```. Thus, at the annoying value of ```t = 27/32```, the ray ```r``` will intersect the boundary of the grid. Note that this value of ```t``` is the least such value of ```t``` for all boundary crossings. 
 
 From here, based on grid we know that 
-```
+```c
 grid.voxel_list = [(0,0),(1,0),
                    (1,1),(0,1)]
 ```
@@ -45,7 +45,7 @@ and we can determine that the voxel we are located in is ```grid.voxel_list[0]``
 
 ### Incremental Traversal
 This brings us to our first algorithm, which we’ll uncover one pseudovariable at a time.
-```
+```c
 loop {
   if (tMaxX < tMaxY) {
 		tMaxX= tMaxX + tDeltaX;
@@ -77,7 +77,7 @@ In fact, some users also call this variable ```Dir```, short for direction. Let�
 ![ray direction 1](images/ray_dir.png)
 
 Here, (```ray.direction.y > 0``` and ```ray.direction.x > 0``` and ```grid.x_step = grid.y_step = 1```). So in this case, 
-```
+```c
 StepX = 1 * grid.x_step = 1;
 StepY = 1 * grid.y_step = 1;
 ```
@@ -85,7 +85,7 @@ StepY = 1 * grid.y_step = 1;
 ![ray direction 2](images/ray_dir2.png)
 
 If the ray’s slope was 0, we’d have instead the following:
-```
+```c
 StepX = 1 * grid.x_step = 1;
 StepY = 0 * grid.y_step = 0;
 ```
@@ -97,7 +97,7 @@ Note that, in addition to the slope of the ray, initializing ```Step``` relies o
 ```StepX = (voxel_size);```
 This gives us the following generalized function for initializing StepX with unit sized voxel:
 
-```
+```c
 // StepX will be 0, 1, -1 depending on the ray's x direction.
 InitializeStepX(Ray r) {
 	if (r.direction.x > 0) StepX = 1;
@@ -114,7 +114,7 @@ The value of ```tMax``` is determined with each iteration. It is the maximum dir
 
 Here, ```tMaxX``` represents how far the ray can travel before hitting the first ```X``` boundary; ```tMaxY``` represents how far the ray can travel before hitting the first ```Y``` boundary. Clearly, for the example above, ```tMaxY``` is smaller than ```tMaxX```; this means we will enter the voxel associated with ```tMaxY``` first. This is exactly the first step of our loop:
 
-```
+```c
 if (tMaxX < tMaxY) {
 	traverse in the x-direction.
 } else {
@@ -125,7 +125,7 @@ if (tMaxX < tMaxY) {
 Example code to calculate ```tMaxX``` might be the following:
 First, let’s calculate the current X index that the ray enters at initialization:
 
-```
+```c
 // Here, we see this is determined by taking the maximum of the 1 and
 // the ray's origin and the minimum bound.
 // If the ray started outside of the grid, then this would default to 1.
@@ -133,7 +133,7 @@ current_X_index = max(1, ceiling(ray_origin.x - grid.minBound.x));
 ```
 We can then calculate ```tMaxX```:
 
-```
+```c
 // grid.minBound.x is the lower left corner of the grid.
 // current_X_index is the current X index where the ray begins. If it starts outside, this is 1.
 // ray_origin.x is the x-coordinate of where the ray originates.
@@ -159,7 +159,7 @@ If one were to use a voxel size other than 1, we’d simply multiply by the ```v
 
 ### 2-dimensional incremental phase algorithm
 Now that we’ve established all of our variables, we can now refer to the algorithm. Here is the entire thing:
-```
+```c
 loop {
 	if (tMaxX < tMaxY) {
 		tMaxX= tMaxX + tDeltaX;
@@ -187,7 +187,7 @@ We are now moving along the ray. tDeltaX tells us how much we’ll move along un
 We’ve now updated either our X or Y component. This means we’ll move on to the next cell, located at (X,Y). 
 
 With checks for out of bounds and whether we’ve hit an object list, this gives us our final algorithm:
-```
+```c
 loop {
 	if (tMaxX < tMaxY) {
 		tMaxX= tMaxX + tDeltaX;
@@ -211,7 +211,7 @@ The paper also uses a ```do...while``` loop, which ends in the two cases we ment
 an ```ObjectList``` has been acquired, i.e. there is an object in the voxel, or we’ve gone out of bounds. 
 Lastly, they name their variable ```justOutX``` instead of ```x_out_of_bounds```. The semantics for both remains the same.
 
-```
+```c
    list= NIL; 
    do { 
         if(tMaxX < tMaxY) { 
